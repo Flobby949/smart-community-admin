@@ -131,6 +131,8 @@ const init = (id?: number) => {
 
 // 获取房屋列表
 const getHouseList = () => {
+	houseList.splice(0, houseList.length)
+
 	return useHouseListApi().then(res => {
 		const getList = ref([{ id: 1, houseNumber: '' }])
 		getList.value = res.data
@@ -146,6 +148,8 @@ const getHouseList = () => {
 }
 // 获取小区列表
 const getCommunityList = () => {
+	communityList.splice(0, communityList.length)
+
 	return useCommunityListApi().then(res => {
 		const getList = ref([{ id: 1, communityName: '' }])
 		getList.value = res.data
