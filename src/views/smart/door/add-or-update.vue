@@ -14,6 +14,18 @@
 					<el-option v-for="item in communityList" :key="item.id" :label="item.communityName" :value="item.id" />
 				</el-select>
 			</el-form-item>
+			<el-form-item label="门禁图片">
+				<el-upload
+					v-loading.fullscreen.lock="fullscreenLoading"
+					:action="upurl"
+					:show-file-list="false"
+					:on-success="handleCoverSuccess"
+					:on-error="handleError"
+					:before-upload="beforeCoverUpload"
+				>
+					<el-image :src="dataForm.doorImg" style="width: 80px; height: 60px" />
+				</el-upload>
+			</el-form-item>
 			<el-form-item label="配置码" prop="sysCode">
 				<el-input v-model="dataForm.sysCode" placeholder="配置码"></el-input>
 			</el-form-item>
@@ -37,6 +49,8 @@ import { ElMessage } from 'element-plus/es'
 import { useDoorApi, useDoorSubmitApi } from '@/api/smart'
 import { getDeviceList } from '@/api/smart'
 import { getCommunityList } from '@/api/community/community'
+import cache from '@/utils/cache'
+import type { UploadProps } from 'element-plus'
 
 const emit = defineEmits(['refreshDataList'])
 
@@ -110,7 +124,6 @@ const deviceList = ref<any[]>([])
 const getDevice = () => {
 	getDeviceList().then((res: any) => {
 		deviceList.value = res.data
-		console.log(deviceList)
 	})
 }
 
@@ -120,6 +133,37 @@ const getCommunityLists = () => {
 	getCommunityList().then(res => {
 		communityList.value = res.data
 	})
+}
+
+// 图片上传
+const upurl = import.meta.env.VITE_API_URL + '/smart/door/upload?accessToken=' + cache.getToken()
+const fullscreenLoading = ref(false)
+
+const handleCoverSuccess: UploadProps['onSuccess'] = (response, uploadFile) => {
+	fullscreenLoading.value = false
+	if (response.code === 500) {
+		ElMessage.error('图片上传失败!')
+		return
+	}
+	dataForm.doorImg = response.data.url
+}
+
+const handleError: UploadProps['onError'] = (file, uploadFiles) => {
+	ElMessage.error('图片上传失败!')
+	fullscreenLoading.value = false
+}
+
+//图片上传前
+const beforeCoverUpload: UploadProps['beforeUpload'] = rawFile => {
+	fullscreenLoading.value = true
+	if (rawFile.type !== 'image/jpeg') {
+		ElMessage.error('请选择图片格式!')
+		return false
+	} else if (rawFile.size / 1024 / 1024 > 10) {
+		ElMessage.error('图片大小不能超过 2MB!')
+		return false
+	}
+	return true
 }
 
 onMounted(() => {
