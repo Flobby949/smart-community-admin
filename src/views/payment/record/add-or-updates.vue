@@ -2,10 +2,10 @@
 	<el-dialog v-model="visible" :title="!dataForm.id ? '新增' : '修改'" :close-on-click-modal="false" draggable>
 		<el-form ref="dataFormRef" :model="dataForm" :rules="dataRules" label-width="120px" @keyup.enter="submitHandle()">
 			<el-form-item prop="houseNumber" label="房屋">
-				<el-tree-select v-model="dataForm.houseNumber" :data="houseList" style="width: 100%" />
+				<el-tree-select v-model="dataForm.houseId" :data="houseList" style="width: 100%" />
 			</el-form-item>
 			<el-form-item prop="communityName" label="小区">
-				<el-tree-select v-model="dataForm.communityName" :data="communityList" style="width: 100%" />
+				<el-tree-select v-model="dataForm.comminityId" :data="communityList" style="width: 100%" />
 			</el-form-item>
 			<el-form-item prop="orderType" label="收费项目">
 				<el-tree-select v-model="dataForm.orderType" :data="orgList" style="width: 100%" />
@@ -31,8 +31,8 @@
 			<el-form-item prop="price" label="价格">
 				<el-input v-model="dataForm.price" placeholder="价格"></el-input>
 			</el-form-item>
-			<el-form-item prop="money" label="金额">
-				<el-input v-model="dataForm.money" placeholder="金额"></el-input>
+			<el-form-item prop="amount" label="用量">
+				<el-input v-model="dataForm.amount" placeholder="用量"></el-input>
 			</el-form-item>
 			<el-form-item prop="status" label="状态">
 				<!-- <fast-radio-group v-model="dataForm.status" dict-type="user_status"></fast-radio-group> -->
