@@ -2,10 +2,10 @@
 	<el-dialog v-model="visible" :title="!dataForm.id ? '新增' : '修改'" :close-on-click-modal="false" draggable>
 		<el-form ref="dataFormRef" :model="dataForm" :rules="dataRules" label-width="120px" @keyup.enter="submitHandle()">
 			<el-form-item prop="houseNumber" label="房屋">
-				<el-tree-select v-model="dataForm.houseNumber" :data="houseList" style="width: 100%" />
+				<el-tree-select v-model="dataForm.houseId" :data="houseList" style="width: 100%" />
 			</el-form-item>
 			<el-form-item prop="communityName" label="小区">
-				<el-tree-select v-model="dataForm.communityName" :data="communityList" style="width: 100%" />
+				<el-tree-select v-model="dataForm.comminityId" :data="communityList" style="width: 100%" />
 			</el-form-item>
 			<el-form-item prop="orderType" label="收费项目">
 				<el-tree-select v-model="dataForm.orderType" :data="orgList" style="width: 100%" />
@@ -31,8 +31,11 @@
 			<el-form-item prop="price" label="价格">
 				<el-input v-model="dataForm.price" placeholder="价格"></el-input>
 			</el-form-item>
-			<el-form-item prop="money" label="金额">
+			<!-- <el-form-item prop="money" label="金额">
 				<el-input v-model="dataForm.money" placeholder="金额"></el-input>
+			</el-form-item> -->
+			<el-form-item prop="amount" label="用量">
+				<el-input v-model="dataForm.amount" placeholder="用量"></el-input>
 			</el-form-item>
 			<el-form-item prop="status" label="状态">
 				<!-- <fast-radio-group v-model="dataForm.status" dict-type="user_status"></fast-radio-group> -->
@@ -96,7 +99,6 @@ const dataForm = reactive({
 	orderType: 1,
 	price: '12',
 	amount: 0,
-	money: 1.0,
 	createTime: '2023-05-25 19:25:55',
 	creator: 10000,
 	updater: 10000,
@@ -135,11 +137,11 @@ const getHouseList = () => {
 		console.log(getList.value)
 		// 遍历housrList
 		getList.value.map(item => {
-			console.log(item.houseNumber)
+			// console.log(item.houseNumber)
 			// 将getList的元素插入 houseList中
 			houseList.push({ value: item.id, label: item.houseNumber })
-			console.log(houseList)
 		})
+		console.log(houseList)
 	})
 }
 // 获取小区列表
@@ -150,11 +152,11 @@ const getCommunityList = () => {
 		console.log(getList.value)
 		// 遍历housrList
 		getList.value.map(item => {
-			console.log(item.communityName)
+			// console.log(item.communityName)
 			// 将getList的元素插入 houseList中
 			communityList.push({ value: item.id, label: item.communityName })
-			console.log(communityList)
 		})
+		console.log(communityList)
 	})
 }
 // 获取信息

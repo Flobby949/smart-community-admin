@@ -5,7 +5,7 @@
 				<el-radio-group v-model="dataForm.type" :disabled="!!dataForm.id" @change="menuTypeChange()">
 					<el-radio :label="0">菜单</el-radio>
 					<el-radio :label="1">按钮</el-radio>
-					<el-radio :label="2">接口</el-radio>
+					<!-- <el-radio :label="2">接口</el-radio> -->
 				</el-radio-group>
 			</el-form-item>
 			<el-form-item prop="name" label="名称">
