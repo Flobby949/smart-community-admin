@@ -11,7 +11,7 @@
 			</el-form-item>
 			<el-form-item>
 				<el-select v-model="state.queryForm.passWay" placeholder="出入方式" clearable>
-					<el-option label="刷卡" :value="0"></el-option>
+					<el-option label="手机开门" :value="0"></el-option>
 					<el-option label="人脸" :value="1"></el-option>
 					<el-option label="指纹" :value="2"></el-option>
 					<el-option label="物业开门" :value="3"></el-option>
@@ -31,7 +31,7 @@
 			<el-table-column prop="doorName" label="出入门禁" header-align="center" align="center"></el-table-column>
 			<el-table-column prop="passWay" label="出入方式" header-align="center" align="center">
 				<template #default="scope">
-					<el-tag v-if="scope.row.passWay === 0" type="info">刷卡</el-tag>
+					<el-tag v-if="scope.row.passWay === 0" type="primary">手机开门</el-tag>
 					<el-tag v-if="scope.row.passWay === 1" type="success">人脸</el-tag>
 					<el-tag v-if="scope.row.passWay === 2" type="warning">指纹</el-tag>
 					<el-tag v-if="scope.row.passWay === 3" type="danger">物业开门</el-tag>
@@ -39,11 +39,6 @@
 			</el-table-column>
 			<el-table-column prop="communityName" label="通行小区" header-align="center" align="center"></el-table-column>
 			<el-table-column prop="createTime" label="创建时间" header-align="center" align="center"></el-table-column>
-			<!-- <el-table-column label="操作" fixed="right" header-align="center" align="center" width="150">
-				<template #default="scope">
-					<el-button v-auth="'sys:pass:info'" type="primary" link @click="addOrUpdateHandle(scope.row.id)">详情</el-button>
-				</template>
-			</el-table-column> -->
 		</el-table>
 		<el-pagination
 			:current-page="state.page"
