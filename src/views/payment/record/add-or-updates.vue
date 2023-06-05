@@ -59,6 +59,7 @@ const emit = defineEmits(['refreshDataList'])
 const visible = ref(false)
 let houseList = reactive([{}])
 let communityList = reactive([{}])
+const communitys = ref<any>([{}])
 
 const orgList = ref([
 	{
@@ -108,37 +109,42 @@ const init = (id?: number) => {
 	}
 
 	getCommunityList()
+
 	getHouseList()
 }
 
 // 获取房屋列表
 const getHouseList = () => {
+	houseList.splice(0, houseList.length)
 	return useHouseListApi().then(res => {
 		const getList = ref([{ id: 1, houseNumber: '' }])
 		getList.value = res.data
 		console.log(getList.value)
 		// 遍历housrList
-		getList.value.map(item => {
-			console.log(item.houseNumber)
+		getList.value.map((item, index) => {
+			// console.log(item.houseNumber)
 			// 将getList的元素插入 houseList中
 			houseList.push({ value: item.id, label: item.houseNumber })
-			console.log(houseList)
 		})
+		console.log(houseList)
 	})
 }
 // 获取小区列表
 const getCommunityList = () => {
+	communityList.splice(0, communityList.length)
+
 	return useCommunityListApi().then(res => {
 		const getList = ref([{ id: 1, communityName: '' }])
 		getList.value = res.data
+		communitys.value = res.data
 		console.log(getList.value)
 		// 遍历housrList
 		getList.value.map(item => {
-			console.log(item.communityName)
+			// console.log(item.communityName)
 			// 将getList的元素插入 houseList中
 			communityList.push({ value: item.id, label: item.communityName })
-			console.log(communityList)
 		})
+		console.log(communityList)
 	})
 }
 // 获取信息
@@ -147,6 +153,9 @@ const getOrder = (id: number) => {
 		Object.assign(dataForm, res.data)
 	})
 }
+// const chanage = ()=>{
+// 	dataForm.comminityId =
+// }
 
 const dataRules = ref({
 	username: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
