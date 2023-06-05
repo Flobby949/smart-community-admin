@@ -67,6 +67,10 @@ import { apApply, reApply } from '@/api/owner/owner'
 import { router } from '@/router'
 const options = [
 	{
+		label: '全部',
+		key: null
+	},
+	{
 		label: '未审核',
 		key: 0
 	},
@@ -83,7 +87,7 @@ const state: IHooksOptions = reactive({
 	dataListUrl: '/one/owner/page',
 	queryForm: {
 		communityName: '',
-		state: 1
+		state: null
 	}
 })
 const approvedApply = (id: number) => {
