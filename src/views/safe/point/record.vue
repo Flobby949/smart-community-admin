@@ -7,7 +7,7 @@ import { useCrud } from '@/hooks'
 
 //弹窗打开关闭
 const visible = ref(false)
-
+const abc = ref('')
 const state: IHooksOptions = reactive({
 	dataListUrl: '/safe/record/page',
 	deleteUrl: '/safe/record',
@@ -27,7 +27,10 @@ const init = (id?: number) => {
 		console.log(id)
 		state.queryForm.pointId = id
 		getDataList()
-		console.log(state.dataList)
+		console.log('----------------------')
+		console.log(state)
+
+		console.log('----------------------')
 	}
 }
 
@@ -45,7 +48,16 @@ defineExpose({ visible, init })
 				<el-table-column prop="phone" label="手机号" header-align="center" align="center"></el-table-column>
 				<el-table-column prop="inspectorTime" label="巡更时间" header-align="center" align="center"></el-table-column>
 				<el-table-column prop="inspectorResult" label="巡检结果" header-align="center" align="center"></el-table-column>
-				<el-table-column prop="photo" label="上传照片" header-align="center" align="center"></el-table-column>
+
+				<el-table-column prop="photo" label="上传照片" header-align="center" align="center">
+					<template #default="{ row }">
+						<div>
+							<div v-for="imageUrl in row.photo.split(',')" :key="imageUrl">
+								<el-image class="w-[40px] h-[20px]" :src="imageUrl" />
+							</div>
+						</div>
+					</template>
+				</el-table-column>
 			</el-table>
 			<el-pagination
 				:current-page="state.page"

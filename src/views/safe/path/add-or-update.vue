@@ -13,7 +13,7 @@
 
 			<div style="display: flex">
 				<el-form-item prop="type">
-					<el-select v-model="dataForm.type" placeholder="请选择">
+					<el-select v-model="dataForm.type" placeholder="请选择" @change="change">
 						<el-option v-for="option in chooseForm" :key="option.id" :label="option.name" :value="option.id"></el-option>
 					</el-select>
 				</el-form-item>
