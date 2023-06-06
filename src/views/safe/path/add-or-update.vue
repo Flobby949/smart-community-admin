@@ -74,6 +74,17 @@ useCommuntiySearchApi().then(res => {
 	communities.value = res.data
 })
 
+//选择巡更点还是巡更项目
+const chooseForm = ref([
+	{
+		id: 0,
+		name: '巡更点'
+	},
+	{
+		id: 1,
+		name: '巡更项目'
+	}
+])
 //巡更点列表
 let points = ref<any[]>([])
 
@@ -195,16 +206,5 @@ defineExpose({
 // 		name: '巡更项目'
 // 	}
 // })
-
-const chooseForm = ref([
-	{
-		id: 0,
-		name: '巡更点'
-	},
-	{
-		id: 1,
-		name: '巡更项目'
-	}
-])
 </script>
 <style scoped></style>

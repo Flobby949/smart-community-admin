@@ -205,7 +205,6 @@ export const useCrud = (options: IHooksOptions) => {
 		deleteHandle,
 		deleteBatchHandle,
 		downloadHandle,
-		getDataListSelections,
-		defaultOptions
+		getDataListSelections
 	}
 }

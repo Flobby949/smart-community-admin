@@ -1,4 +1,4 @@
-import service from "@/utils/request"
+import service from '@/utils/request'
 
 /**
  *  修改添加巡检项目
@@ -17,12 +17,14 @@ export const usePointApi = (id: number) => {
 	return service.get('/safe/point/' + id)
 }
 
-export const useCommuntiySearchApi=()=>{
-    return service.get('/safe/point/communties')
-    
+export const useCommuntiySearchApi = () => {
+	return service.get('/safe/point/communties')
 }
 
-export const useBuildingsByCommuntiyId=(communityId:any)=>{
-	return service.get('/safe/point/buildings/'+communityId)
+export const useBuildingsByCommuntiyId = (communityId: any) => {
+	return service.get('/safe/point/buildings/' + communityId)
 }
 
+export const useRecordByPointId = (pointId: any) => {
+	return service.get('/safe/record/page' + pointId)
+}
