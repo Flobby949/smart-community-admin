@@ -13,7 +13,7 @@
 
 			<div style="display: flex">
 				<el-form-item prop="type">
-					<el-select v-model="dataForm.type" placeholder="请选择">
+					<el-select v-model="dataForm.type" placeholder="请选择" @change="change">
 						<el-option v-for="option in chooseForm" :key="option.id" :label="option.name" :value="option.id"></el-option>
 					</el-select>
 				</el-form-item>
@@ -74,6 +74,17 @@ useCommuntiySearchApi().then(res => {
 	communities.value = res.data
 })
 
+//选择巡更点还是巡更项目
+const chooseForm = ref([
+	{
+		id: 0,
+		name: '巡更点'
+	},
+	{
+		id: 1,
+		name: '巡更项目'
+	}
+])
 //巡更点列表
 let points = ref<any[]>([])
 
@@ -195,16 +206,5 @@ defineExpose({
 // 		name: '巡更项目'
 // 	}
 // })
-
-const chooseForm = ref([
-	{
-		id: 0,
-		name: '巡更点'
-	},
-	{
-		id: 1,
-		name: '巡更项目'
-	}
-])
 </script>
 <style scoped></style>

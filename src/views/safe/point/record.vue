@@ -22,12 +22,17 @@ const props = defineProps({
 		default: null
 	}
 })
+//查询到的数据列表
+const list = ref<any>()
 const init = (id?: number) => {
 	if (id) {
 		console.log(id)
 		state.queryForm.pointId = id
 		getDataList()
-		console.log(state.dataList)
+		console.log('----------------------')
+		console.log(state)
+
+		console.log('----------------------')
 	}
 }
 
@@ -45,7 +50,16 @@ defineExpose({ visible, init })
 				<el-table-column prop="phone" label="手机号" header-align="center" align="center"></el-table-column>
 				<el-table-column prop="inspectorTime" label="巡更时间" header-align="center" align="center"></el-table-column>
 				<el-table-column prop="inspectorResult" label="巡检结果" header-align="center" align="center"></el-table-column>
-				<el-table-column prop="photo" label="上传照片" header-align="center" align="center"></el-table-column>
+				<el-table-column prop="photo" label="上传照片" header-align="center" align="center">
+					<template #default="{ row }">
+						<div v-if="row.photo">
+							<div v-for="photoPath in row.photo.split('*')" :key="photoPath">
+								<img :src="photoPath" alt="照片" style="max-width: 100px; max-height: 100px; margin-bottom: 10px" />
+							</div>
+						</div>
+						<div v-else>暂无照片</div>
+					</template>
+				</el-table-column>
 			</el-table>
 			<el-pagination
 				:current-page="state.page"
