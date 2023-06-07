@@ -50,6 +50,14 @@
 			<el-table-column prop="monitorTypeName" label="监控分组" header-align="center" align="center"></el-table-column>
 			<el-table-column label="操作" fixed="right" header-align="center" align="center" width="150">
 				<template #default="scope">
+					<el-button
+						v-show="scope.row.status === 0 && scope.row.enabled === 0"
+						v-auth="'sys:monitor:info'"
+						type="primary"
+						link
+						@click="showLive(scope.row.url)"
+						>直播</el-button
+					>
 					<el-button v-auth="'sys:monitor:update'" type="primary" link @click="addOrUpdateHandle(scope.row.id)">修改</el-button>
 					<el-button v-auth="'sys:monitor:delete'" type="primary" link @click="deleteBatchHandle(scope.row.id)">删除</el-button>
 				</template>
@@ -66,8 +74,12 @@
 		>
 		</el-pagination>
 
+		<el-dialog v-model="liveShow" title="监控直播" center align-center @close="closeDialog">
+			<vue3videoPlay ref="video" width="900px" :src="liveUrl" type="m3u8" :auto-play="true" />
+		</el-dialog>
+
 		<!-- 弹窗, 新增 / 修改 -->
-		<add-or-update ref="addOrUpdateRef" :monitor-type-list="monitorTypeList" @refreshDataList="getDataList"></add-or-update>
+		<add-or-update ref="addOrUpdateRef" :monitor-type-list="monitorTypeList" @refresh-data-list="getDataList"></add-or-update>
 	</el-card>
 </template>
 
@@ -78,6 +90,7 @@ import AddOrUpdate from './add-or-update.vue'
 import { IHooksOptions } from '@/hooks/interface'
 import { getEnabledMonitorTypeList } from '@/api/smart'
 import { getCommunityList } from '@/api/community/community'
+import vue3videoPlay from 'vue3-video-play'
 
 const state: IHooksOptions = reactive({
 	dataListUrl: '/smart/monitor/page',
@@ -113,6 +126,19 @@ const getCommunityLists = () => {
 	})
 }
 
+const liveShow = ref<boolean>(false)
+const liveUrl = ref<string>('')
+
+const showLive = (url: string) => {
+	liveShow.value = true
+	liveUrl.value = url
+}
+
+const video = ref()
+const closeDialog = () => {
+	console.log()
+	video.value.pause()
+}
 onMounted(() => {
 	getCommunityLists()
 	getMonitorType()

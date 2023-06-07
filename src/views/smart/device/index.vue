@@ -16,9 +16,6 @@
 				</el-select>
 			</el-form-item>
 			<el-form-item>
-				<el-input v-model="state.queryForm.address" placeholder="设备位置"></el-input>
-			</el-form-item>
-			<el-form-item>
 				<el-button @click="getDataList()">查询</el-button>
 			</el-form-item>
 			<el-form-item>
@@ -32,8 +29,10 @@
 			<el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
 			<el-table-column prop="deviceTypeName" label="类别" header-align="center" align="center" width="100"></el-table-column>
 			<el-table-column prop="deviceName" label="设备名称" header-align="center" align="center"></el-table-column>
-			<el-table-column prop="address" label="设备位置" header-align="center" align="center"></el-table-column>
-			<el-table-column prop="qrCode" label="设备二维码" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="deviceSerial" label="设备序列号" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="qrCode" label="设备二维码" header-align="center" align="center">
+				<template #default="scope"> <img :src="scope.row.qrCode" width="80" /> </template>
+			</el-table-column>
 			<el-table-column prop="status" label="状态" header-align="center" align="center" width="80">
 				<template #default="scope">
 					<el-tag v-if="scope.row.status === 0" type="success">正常</el-tag>
@@ -60,7 +59,7 @@
 		</el-pagination>
 
 		<!-- 弹窗, 新增 / 修改 -->
-		<add-or-update ref="addOrUpdateRef" :device-type-list="deviceTypeList" @refreshDataList="getDataList"></add-or-update>
+		<add-or-update ref="addOrUpdateRef" :device-type-list="deviceTypeList" @refresh-data-list="getDataList"></add-or-update>
 	</el-card>
 </template>
 
@@ -79,8 +78,7 @@ const state: IHooksOptions = reactive({
 		deviceName: '',
 		status: '',
 		deviceType: '',
-		communityId: '',
-		address: ''
+		communityId: ''
 	}
 })
 

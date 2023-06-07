@@ -27,7 +27,7 @@
 			</el-form-item>
 		</el-form>
 		<el-table v-loading="state.dataListLoading" :data="state.dataList" border style="width: 100%" @selection-change="selectionChangeHandle">
-			<el-table-column prop="username" label="业主" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="username" label="操作人" header-align="center" align="center"></el-table-column>
 			<el-table-column prop="doorName" label="出入门禁" header-align="center" align="center"></el-table-column>
 			<el-table-column prop="passWay" label="出入方式" header-align="center" align="center">
 				<template #default="scope">
