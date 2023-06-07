@@ -21,8 +21,8 @@
 			</el-form-item>
 			<el-form-item label="拍照要求">
 				<el-radio-group v-model="dataForm.photoRequirement">
-					<el-radio :label="3" :value="1">拍照</el-radio>
-					<el-radio :label="6" :value="0">不拍照</el-radio>
+					<el-radio :label="1" :value="1">拍照</el-radio>
+					<el-radio :label="0" :value="0">不拍照</el-radio>
 				</el-radio-group>
 			</el-form-item>
 			<el-form-item prop="planCycle" label="执行频率">
@@ -160,7 +160,9 @@ const dataRules = ref({
 	pathId: [{ required: true, message: '必填项不能为空', trigger: 'change	' }],
 	inspectorId: [{ required: true, message: '必填项不能为空', trigger: 'change	' }],
 	planCycle: [{ required: true, message: '必填项不能为空', trigger: 'change	' }],
-	planStart: [{ required: true, message: '必填项不能为空', trigger: 'blur' }]
+	planStart: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
+	startTime: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
+	endTime: [{ required: true, message: '必填项不能为空', trigger: 'blur' }]
 })
 
 // 表单提交
