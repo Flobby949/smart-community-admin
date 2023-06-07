@@ -25,7 +25,7 @@
 						<el-descriptions-item label="昵称：" label-align="right" label-class-name="my-label" class-name="my-content" width="50px"
 							><span>{{ data.username }}</span></el-descriptions-item
 						>
-						<el-descriptions-item label="手机号：" label-align="right" width="100px">13013001300</el-descriptions-item>
+						<el-descriptions-item label="手机号：" label-align="right" width="100px">{{ data.phone }}</el-descriptions-item>
 						<el-descriptions-item label="姓名：" label-align="right">{{ data.realName }}</el-descriptions-item>
 						<el-descriptions-item label="类型：" label-align="right">
 							<span v-if="data.identity == 0">业主</span>

@@ -10,6 +10,9 @@ export const reApply = (data:any) => {
 export const oInfo = (id:any) =>{
 	return service.get("/one/owner/"+id)
 }
+export const fInfo = (id:any) =>{
+	return service.get("/one/owner/family/"+id)
+}
 export const ownerFamily =(data:any)=>{
 	return service.post("/one/owner/findFamily",data, {headers : {'Content-Type': 'application/x-www-form-urlencoded'}})
 }
