@@ -132,7 +132,9 @@ const getInspectionItem = (id: number) => {
 
 const dataRules = ref({
 	name: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	communityId: [{ required: true, message: '必填项不能为空', trigger: 'blur' }]
+	communityId: [{ required: true, message: '所属社区不能为空', trigger: 'blur' }],
+	pointName: [{ required: true, message: '巡更点名称不能为空', trigger: 'blur' }],
+	coordinate: [{ required: true, message: '经纬度坐标不能为空', trigger: 'blur' }]
 })
 
 // 表单提交
