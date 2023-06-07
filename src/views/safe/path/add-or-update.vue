@@ -13,7 +13,7 @@
 
 			<div style="display: flex">
 				<el-form-item prop="type">
-					<el-select v-model="dataForm.type" placeholder="请选择" @change="change">
+					<el-select v-model="dataForm.type" placeholder="请选择类型" @change="change">
 						<el-option v-for="option in chooseForm" :key="option.id" :label="option.name" :value="option.id"></el-option>
 					</el-select>
 				</el-form-item>
@@ -170,7 +170,11 @@ const getInspectionItem = (id: number) => {
 
 const dataRules = ref({
 	name: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	communityId: [{ required: true, message: '必填项不能为空', trigger: 'blur' }]
+	communityId: [{ required: true, message: '所属社区不能为空', trigger: 'blur' }],
+	wayName: [{ required: true, message: '巡更路线名称不能为空', trigger: 'blur' }],
+	pointIds: [{ required: true, message: '巡更点名称不能为空', trigger: 'blur' }],
+	type: [{ required: true, message: '类型不能为空', trigger: 'blur' }],
+	itemIds: [{ required: true, message: '巡检项目不能为空', trigger: 'blur' }]
 })
 
 // 表单提交
