@@ -32,7 +32,9 @@
 				</el-select>
 			</el-form-item>
 			<el-form-item label="监控直播url" prop="url">
-				<el-input v-model="dataForm.url" placeholder="监控直播url"></el-input>
+				<el-input v-model="dataForm.url" placeholder="监控直播url" disabled="">
+					<template #append><el-button type="primary" @click="getLiveUrl"> 获取url </el-button></template>
+				</el-input>
 			</el-form-item>
 			<el-form-item label="排序" prop="orderd">
 				<el-input-number v-model="dataForm.orderd" controls-position="right" :min="0" label="排序"></el-input-number>
@@ -48,7 +50,7 @@
 <script setup lang="ts">
 import { reactive, ref, onMounted } from 'vue'
 import { ElMessage } from 'element-plus/es'
-import { useMonitorApi, useMonitorSubmitApi } from '@/api/smart'
+import { useMonitorApi, useMonitorSubmitApi, getMonitorLiveUrl } from '@/api/smart'
 import { getDeviceList } from '@/api/smart'
 import { getCommunityList } from '@/api/community/community'
 
@@ -138,6 +140,19 @@ const communityList = ref<any[]>([])
 const getCommunityLists = () => {
 	getCommunityList().then(res => {
 		communityList.value = res.data
+	})
+}
+
+const getLiveUrl = () => {
+	if (dataForm.deviceId == '' || dataForm.deviceId == undefined) {
+		ElMessage.error({
+			message: '请选择设备',
+			duration: 500
+		})
+		return
+	}
+	getMonitorLiveUrl(Number(dataForm.deviceId)).then(res => {
+		dataForm.url = res.data
 	})
 }
 

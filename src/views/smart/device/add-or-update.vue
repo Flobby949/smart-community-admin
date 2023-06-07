@@ -15,11 +15,14 @@
 					<el-option v-for="item in deviceTypeList" :key="item.id" :label="item.type" :value="item.id" />
 				</el-select>
 			</el-form-item>
-			<el-form-item label="设备位置" prop="address">
-				<el-input v-model="dataForm.address" placeholder="设备位置"></el-input>
+			<el-form-item label="设备序列号" prop="deviceSerial">
+				<el-input v-model="dataForm.deviceSerial" placeholder="设备序列号"></el-input>
 			</el-form-item>
 			<el-form-item label="设备二维码" prop="qrCode">
-				<el-input v-model="dataForm.qrCode" placeholder="设备二维码"></el-input>
+				<div style="display: flex; flex-direction: column; justify-content: center; align-items: start">
+					<el-button type="primary" style="width: 100px" @click="createQrCode">生成二维码</el-button>
+					<img v-show="showQrCode" :src="qrcode" />
+				</div>
 			</el-form-item>
 		</el-form>
 		<template #footer>
@@ -30,10 +33,11 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { Ref, reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus/es'
 import { useDeviceApi, useDeviceSubmitApi } from '@/api/smart'
 import { deviceTypeEntity } from '../entity'
+import { useQRCode } from '@vueuse/integrations/useQRCode'
 
 defineProps<{
 	deviceTypeList: deviceTypeEntity[]
@@ -43,25 +47,20 @@ const emit = defineEmits(['refreshDataList'])
 
 const visible = ref(false)
 const dataFormRef = ref()
-
+const showQrCode = ref(false)
 const dataForm = reactive({
 	id: '',
 	deviceName: '',
 	status: '',
 	deviceType: '',
-	address: '',
-	qrCode: '',
-	deleted: '',
-	createTime: '',
-	creator: '',
-	updateTime: '',
-	updater: ''
+	deviceSerial: '',
+	qrCode: ''
 })
 
 const init = (id?: number) => {
 	visible.value = true
 	dataForm.id = ''
-
+	showQrCode.value = false
 	// 重置表单数据
 	if (dataFormRef.value) {
 		dataFormRef.value.resetFields()
@@ -80,7 +79,8 @@ const getDevice = (id: number) => {
 
 const dataRules = ref({
 	deviceName: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
-	deviceType: [{ required: true, message: '必填项不能为空', trigger: 'blur' }]
+	deviceType: [{ required: true, message: '必填项不能为空', trigger: 'blur' }],
+	deviceSerial: [{ required: true, message: '必填项不能为空', trigger: 'blur' }]
 })
 
 // 表单提交
@@ -106,4 +106,22 @@ const submitHandle = () => {
 defineExpose({
 	init
 })
+
+let qrcode: Ref<string> = ref('')
+
+const createQrCode = async () => {
+	if (dataForm.deviceSerial == '') {
+		ElMessage.error('请输入序列号')
+		return
+	}
+	showQrCode.value = true
+	// eslint-disable-next-line vue/no-ref-as-operand
+	qrcode = await useQRCode(
+		JSON.stringify({
+			deviceName: dataForm.deviceName,
+			deviceSerial: dataForm.deviceSerial
+		})
+	)
+	dataForm.qrCode = qrcode.value
+}
 </script>

@@ -72,6 +72,10 @@ export const getEnabledMonitorTypeList = () => {
 	return service.get('/smart/monitorType/list')
 }
 
+export const getMonitorLiveUrl = (id: number) => {
+	return service.get('/smart/monitor/live/' + id)
+}
+
 export const useDoorApi = (id: number) => {
 	return service.get('/smart/door/' + id)
 }
