@@ -163,13 +163,14 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (response, uploadFile) => 
 	console.log(dataForm)
 }
 
+const validTypes: [string, string] = ['image/jpeg', 'image/png']
 //图片上传前
 const beforeAvatarUpload: UploadProps['beforeUpload'] = rawFile => {
-	if (rawFile.type !== 'image/jpeg') {
-		ElMessage.error('Avatar picture must be JPG format!')
+	if (!validTypes.includes(rawFile.type)) {
+		ElMessage.error('请选择 JPEG 或 PNG 文件！')
 		return false
 	} else if (rawFile.size / 1024 / 1024 > 10) {
-		ElMessage.error('Avatar picture size can not exceed 2MB!')
+		ElMessage.error('图片大小不能超过10M!')
 		return false
 	}
 	return true
