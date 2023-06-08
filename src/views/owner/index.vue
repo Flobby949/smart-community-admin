@@ -45,9 +45,11 @@
 				<template #default="scope">
 					<el-button v-if="scope.row.identity === 0" v-auth="'owner:index:info'" type="primary" link @click="toInfo(scope.row.id)">查看</el-button>
 					<el-button v-else v-auth="'owner:index:info'" type="primary" link @click="LookInfo(scope.row)">查看</el-button>
-					<el-button v-if="scope.row.identity != 0" v-auth="'owner:info:delete'" type="danger" link @click="deleteFamilyHandle(scope.row.id)"
-						>删除</el-button
-					>
+					<el-popconfirm title="您确定要删除这条信息吗?" @confirm="deleteFamilyHandle(scope.row.id)" @cancel="cancelDelete()">
+						<template #reference>
+							<el-button v-if="scope.row.identity != 0" v-auth="'owner:info:delete'" type="danger" link>删除</el-button>
+						</template>
+					</el-popconfirm>
 					<el-button
 						v-if="scope.row.state === 0 && scope.row.identity === 0"
 						v-auth="'owner:index:apApply'"
@@ -149,6 +151,9 @@ const approvedApply = (id: number) => {
 		}
 	})
 }
+const cancelDelete = () => {
+	ElMessage.info('已取消删除')
+}
 const refuseApply = (id: number) => {
 	reApply(id).then((res: any) => {
 		if (res.code == 0) {
@@ -161,7 +166,7 @@ const refuseApply = (id: number) => {
 }
 const resetData = () => {
 	state.queryForm.communityName = ''
-	state.queryForm.state = 1
+	state.queryForm.state = null
 	getDataList()
 }
 const LookInfo = (row: any) => {
