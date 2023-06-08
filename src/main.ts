@@ -11,7 +11,7 @@ import 'virtual:svg-icons-register'
 import '@/icons/iconfont/iconfont'
 import 'element-plus/dist/index.css'
 import '@/styles/index.scss'
-// import 'vue3-video-play/dist/style.css'
+import 'vue3-video-play/dist/style.css'
 
 import 'xe-utils'
 import VXETable from 'vxe-table'
