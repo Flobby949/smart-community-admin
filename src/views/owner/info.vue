@@ -14,7 +14,7 @@
 				<p class="text-gray-400 ml-5">身份证号：{{ data.identityCard }}</p>
 			</div>
 			<div class="flex mt-5">
-				<p class="text-gray-400">所属校区：{{ data.communityName }}</p>
+				<p class="text-gray-400">所属小区：{{ data.communityName }}</p>
 				<p class="text-gray-400 ml-5">楼宇：{{ data.houseName }}</p>
 			</div>
 		</el-card>
@@ -80,7 +80,11 @@
 						<el-table-column prop="isRegister" label="是否注册" width="180" />
 						<el-table-column prop="date" label="操作" width="180">
 							<template #default="scope">
-								<el-button v-auth="'owner:info:delete'" type="danger" link @click="deleteFamilyHandle(scope.row.id)">删除</el-button>
+								<el-popconfirm title="您确定要删除这条信息吗?" @confirm="deleteFamilyHandle(scope.row.id)" @cancel="cancelDelete()">
+									<template #reference>
+										<el-button v-auth="'owner:info:delete'" type="danger" link>删除</el-button>
+									</template>
+								</el-popconfirm>
 							</template>
 						</el-table-column>
 					</el-table>
@@ -115,6 +119,9 @@ const deleteFamilyHandle = (id: number) => {
 			familyData.value = res.data
 		})
 	})
+}
+const cancelDelete = () => {
+	ElMessage.info('已取消删除')
 }
 </script>
 
