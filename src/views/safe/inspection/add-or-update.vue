@@ -31,7 +31,7 @@
 				<el-input v-model="dataForm.insuranceFactory" placeholder="维保厂商"></el-input>
 			</el-form-item>
 			<el-form-item prop="coordinate" label="坐标">
-				<el-input v-model="dataForm.coordinate" placeholder="座标" @click="choose"></el-input>
+				<el-input v-model="dataForm.coordinate" placeholder="座标" readonly @click="choose"></el-input>
 				<mapper ref="mapcontainer" :form="form" @change-form="handleClick"></mapper>
 			</el-form-item>
 			<el-form-item label="备注">
