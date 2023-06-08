@@ -25,7 +25,7 @@
 				<el-input v-model="dataForm.coordinate" placeholder="经纬度坐标"></el-input>
 			</el-form-item> -->
 			<el-form-item prop="coordinate" label="经纬度坐标">
-				<el-input v-model="dataForm.coordinate" :suffix-icon="Location" @click="choose" />
+				<el-input v-model="dataForm.coordinate" :suffix-icon="Location" readonly @click="choose" />
 				<mapper ref="mapcontainer" :form="form" @change-form="handleClick"></mapper>
 			</el-form-item>
 
@@ -52,6 +52,7 @@ import { Location } from '@element-plus/icons-vue'
 const communities = ref<any[]>([])
 const buildings = ref<any[]>([])
 const changeCommunity = () => {
+	dataForm.buildingId = ''
 	useBuildingsByCommuntiyId(dataForm.communityId).then(res => {
 		buildings.value = res.data
 	})
@@ -72,7 +73,6 @@ const dataFormRef = ref()
 const mapcontainer = ref()
 //选择座标被点击
 const choose = () => {
-	console.log('aaaa')
 	//根据组件绑定的ref使用初始化方法
 	mapcontainer.value.initMap(dataForm.coordinate)
 }

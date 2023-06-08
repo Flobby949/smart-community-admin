@@ -20,7 +20,7 @@
 		"axios": "^1.4.0",
 		"cropperjs": "^1.5.13",
 		"dayjs": "^1.11.8",
-		"element-plus": "^2.3.5",
+		"element-plus": "^2.3.6",
 		"mitt": "^3.0.0",
 		"nprogress": "^0.2.0",
 		"pinia": "^2.1.3",
