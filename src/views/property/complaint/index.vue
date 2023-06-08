@@ -37,17 +37,17 @@
 		</el-form>
 		<el-table v-loading="state.dataListLoading" :data="state.dataList" border style="width: 100%" @selection-change="selectionChangeHandle">
 			<el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
-			<el-table-column type="index" align="center" width="90"  label="编号"> </el-table-column>
+			<el-table-column type="index" align="center" width="90" label="编号"> </el-table-column>
 			<!-- <el-table-column prop="communityId" label="社区id" header-align="center" align="center"></el-table-column> -->
 			<el-table-column prop="communityName" label="所属小区" header-align="center" align="center"></el-table-column>
 			<!-- <el-table-column prop="userId" label="投诉人id" header-align="center" align="center"></el-table-column> -->
 			<!-- <el-table-column prop="type" label="投诉类型(0:物业服务，1:社区服务)" header-align="center" align="center"></el-table-column> -->
-			<fast-table-column prop="type" label="投诉类型" dict-type="repair_type"></fast-table-column>
+			<fast-table-column prop="type" label="投诉类型" dict-type="complaint_type"></fast-table-column>
 			<!-- <el-table-column prop="title" label="投诉标题" header-align="center" align="center"></el-table-column> -->
 			<!-- <el-table-column prop="content" label="投诉内容" header-align="center" align="center"></el-table-column> -->
 			<!-- <el-table-column prop="imgs" label="图片" header-align="center" align="center"></el-table-column> -->
 			<!-- <el-table-column prop="userId" label="投诉人" header-align="center" align="center"></el-table-column> -->
-			<el-table-column prop="userName" label="报修人" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="userName" label="投诉人" header-align="center" align="center"></el-table-column>
 			<el-table-column prop="createTime" label="投诉时间" header-align="center" align="center"></el-table-column>
 			<!-- <el-table-column prop="employeeIds" label="处理人" header-align="center" align="center"></el-table-column> -->
 			<el-table-column prop="employeeNames" label="处理人" header-align="center" align="center"></el-table-column>
