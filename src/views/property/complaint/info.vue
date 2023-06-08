@@ -23,10 +23,12 @@
 			</div>
 
 			<div class="right">
-				<img :src="data.imgs" />
+				<template v-for="(item, index) in data.imgs" :key="index">
+					<img :src="item" />
+				</template>
 			</div>
 		</div>
-		<h3>投诉处理</h3>
+		<!-- <h3>投诉处理</h3> -->
 	</el-card>
 </template>
 
@@ -36,9 +38,8 @@ import { router } from '@/router'
 import { reactive } from 'vue'
 import { useGetDictType, useGetInfo, useSetInfo } from '../property'
 const data = useGetInfo()
+data.imgs = data.imgs.split(',')
 let complaint_type = await useGetDictType(18)
-
-
 </script>
 
 <style scoped>
@@ -57,15 +58,15 @@ h1 {
 	position: relative;
 }
 
-.content .left{
+.content .left {
 	/* border: 1px solid red; */
 }
-.content .right{
+.content .right {
 	position: absolute;
 	right: 10px;
 	top: 0px;
 }
-.content img{
+.content img {
 	width: 150px;
 	height: 150px;
 }
