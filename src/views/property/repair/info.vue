@@ -24,10 +24,12 @@
 			</div>
 
 			<div class="right">
-				<img :src="data.imgs" />
+				<template v-for="(item, index) in data.imgs" :key="index">
+					<img :src="item" />
+				</template>
 			</div>
 		</div>
-		<h3>报修处理</h3>
+		<!-- <h3>报修处理</h3> -->
 	</el-card>
 </template>
 
@@ -36,6 +38,7 @@ import { useReadNoticeUser } from '@/api/property/notice'
 import { reactive } from 'vue'
 import { useGetDictType, useGetInfo } from '../property'
 const data = useGetInfo()
+data.imgs = data.imgs.split(',')
 // console.log(data)
 // let state = reactive({
 // 	dataListLoading: true,
