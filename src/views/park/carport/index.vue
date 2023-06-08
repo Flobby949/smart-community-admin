@@ -38,7 +38,14 @@
 			<el-table-column prop="realName" label="户主" header-align="center" align="center" width="100"></el-table-column>
 			<el-table-column prop="carportName" label="车位名称" header-align="center" align="center" width="100"></el-table-column>
 			<el-table-column prop="startTime" label="租赁(购买)开始时间" header-align="center" align="center"></el-table-column>
-			<el-table-column prop="endTime" label="租赁结束时间" header-align="center" align="center"></el-table-column>
+			<el-table-column prop="endTime" label="租赁结束时间" header-align="center" align="center">
+				<template #default="{ row }">
+					<template v-if="row.status === 2"> 长期有效 </template>
+					<template v-else>
+						{{ row.endTime }}
+					</template>
+				</template>
+			</el-table-column>
 			<el-table-column prop="status" label="车位状态" header-align="center" align="center" width="100"
 				><template #default="{ row }">
 					<el-tag v-if="row.status == 0" type="success">闲置</el-tag>
