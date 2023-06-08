@@ -46,8 +46,8 @@
 				</template>
 			</el-table-column>
 			<el-table-column prop="content" label="备注" header-align="center" align="center"></el-table-column>
-			<el-table-column prop="createTime" label="创建时间" header-align="center" align="center" width="180"></el-table-column>
-			<el-table-column label="操作" fixed="right" header-align="center" align="center" width="150">
+			<el-table-column prop="createTime" label="创建时间" header-align="center" align="center" width="140"></el-table-column>
+			<el-table-column label="操作" fixed="right" header-align="center" align="center" width="140">
 				<template #default="scope">
 					<el-button v-auth="'sys:house:update'" type="primary" link @click="addOrUpdateHandle(scope.row.id)">修改</el-button>
 					<el-button v-auth="'sys:house:delete'" type="primary" link @click="deleteBatchHandle(scope.row.id)">删除</el-button>

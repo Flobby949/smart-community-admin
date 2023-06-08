@@ -15,7 +15,7 @@
 				<el-upload
 					class="avatar-uploader"
 					:action="upurl"
-					:show-file-list="true"
+					:show-file-list="false"
 					:on-success="handleAvatarSuccess"
 					:before-upload="beforeAvatarUpload"
 				>
@@ -46,6 +46,7 @@ const visible = ref(false)
 const dataFormRef: any = ref()
 
 const dataForm = reactive({
+	photo: '',
 	id: '',
 	communityName: '',
 	address: '',
@@ -103,22 +104,23 @@ const submitHandle = () => {
 		})
 	})
 }
-const upurl = import.meta.env.VITE_API_URL + '/safe/inspectionitem/upload?accessToken=' + cache.getToken()
+const upurl = import.meta.env.VITE_API_URL + '/sys/community/upload?accessToken=' + cache.getToken()
 
 //图片上传
 const handleAvatarSuccess: UploadProps['onSuccess'] = (response, uploadFile) => {
 	console.log(response)
-	dataForm.photo = response.data.url
+	dataForm.communityImgs = response.data.url
 	console.log(dataForm)
 }
 
 //图片上传前
+const validTypes: [string, string] = ['image/jpeg', 'image/png']
 const beforeAvatarUpload: UploadProps['beforeUpload'] = rawFile => {
-	if (rawFile.type !== 'image/jpeg') {
-		ElMessage.error('Avatar picture must be JPG format!')
+	if (!validTypes.includes(rawFile.type)) {
+		ElMessage.error('请选择 JPEG 或 PNG 文件！')
 		return false
 	} else if (rawFile.size / 1024 / 1024 > 10) {
-		ElMessage.error('Avatar picture size can not exceed 2MB!')
+		ElMessage.error('图片大小不能超过10M!')
 		return false
 	}
 	return true
