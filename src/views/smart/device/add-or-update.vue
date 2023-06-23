@@ -20,8 +20,8 @@
 			</el-form-item>
 			<el-form-item label="设备二维码" prop="qrCode">
 				<div style="display: flex; flex-direction: column; justify-content: center; align-items: start">
-					<el-button type="primary" style="width: 100px" @click="createQrCode">生成二维码</el-button>
-					<img v-show="showQrCode" :src="qrcode" />
+					<el-button type="primary" style="width: 100px" @click="createQrCode()">生成二维码</el-button>
+					<img v-if="showQrCode" :src="qrcode" />
 				</div>
 			</el-form-item>
 		</el-form>

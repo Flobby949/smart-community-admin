@@ -74,7 +74,7 @@
 		>
 		</el-pagination>
 
-		<el-dialog v-model="liveShow" title="监控直播" center align-center @close="closeDialog">
+		<el-dialog v-model="liveShow" title="监控直播" width="950" center align-center @close="closeDialog">
 			<vue3videoPlay ref="video" width="900px" :src="liveUrl" type="m3u8" :auto-play="true" />
 		</el-dialog>
 
